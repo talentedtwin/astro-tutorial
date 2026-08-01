@@ -1,17 +1,8 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 const postLoaders = import.meta.glob("./posts/*.md");
-const allPosts = await Promise.all(
-  Object.entries(postLoaders).map(async ([filePath, loadPost]) => {
-    const post = (await loadPost()) as any;
-
-    return {
-      // Build the route from file path: ./posts/post-1.md -> /posts/post-1/
-      url: filePath.replace(".", "").replace(".md", "/"),
-      title: post.frontmatter?.title ?? "Untitled post",
-    };
-  }),
-);
+const allPosts = await getCollection("blog");
 const pageTitle = "My Astro Learning Blog";
 ---
 
@@ -21,7 +12,7 @@ const pageTitle = "My Astro Learning Blog";
     {
       allPosts.map((post: any) => (
         <li>
-          <a href={post.url}>{post.title}</a>
+          <a href={`/posts/${post.id}/`}>{post.data.title}</a>
         </li>
       ))
     }
