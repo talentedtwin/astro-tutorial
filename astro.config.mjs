@@ -5,6 +5,6 @@ import preact from "@astrojs/preact";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://astro-tutorial-gamma-eight.vercel.app/",
+  site: "https://astro-tutorial-gamma-eight.vercel.app",
   integrations: [preact()],
 });
